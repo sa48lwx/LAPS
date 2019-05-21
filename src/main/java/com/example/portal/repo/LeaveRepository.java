@@ -9,3 +9,4 @@ import  com.example.portal.model.Leave;
 public interface LeaveRepository extends JpaRepository<Leave,String> {
 
 }
+
