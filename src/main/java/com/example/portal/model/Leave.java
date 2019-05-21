@@ -1,5 +1,7 @@
 package com.example.portal.model;
 
+
+
 import java.util.Date;
 
 import javax.persistence.Entity;
