@@ -8,10 +8,10 @@
 		<version>2.1.4.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.leaveapplication</groupId>
-	<artifactId>leaveportal</artifactId>
+	<groupId>sg.edu.nus</groupId>
+	<artifactId>formdemo</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>leaveportal</name>
+	<name>formandmysql</name>
 	<description>Demo project for Spring Boot</description>
 
 	<properties>
@@ -33,8 +33,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
 			<scope>runtime</scope>
 		</dependency>
 		<dependency>
