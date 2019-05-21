@@ -15,6 +15,7 @@ import com.example.portal.model.User;
 import com.example.portal.repo.UserRepository;
 
 // This controller contains all the admin CRUD functions for Employee Data
+//test 2nd commit
 @Controller
 public class UserController {
 	
