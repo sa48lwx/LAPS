@@ -1,22 +1,26 @@
 package com.example.portal.controller;
 
 
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import  com.example.portal.model.Leave;
-import  com.example.portal.model.User;
 import  com.example.portal.repo.LeaveRepository;
-import  com.example.portal.repo.UserRepository;
+import  com.example.portal.repo.UserRepository; 
 
 @Controller
 public class AdminController {
@@ -37,23 +41,21 @@ public class AdminController {
 	{
 		return "index";
 	}
+	
 	@RequestMapping(path = "/leaves/add", method = RequestMethod.GET)
     public String createLeave(Model model) {
         model.addAttribute("leave", new Leave());
         return "edit";
     }
-	  @RequestMapping(path = "/leaves", method = RequestMethod.POST)
-	    public String saveLeave(@Valid Leave l, BindingResult bindingResult, Model model) {
-	    	if (bindingResult.hasErrors()) {
-	            return "edit";
-	        }
-	  
-	        lRepo.save(l);
-	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-		 	model.addAttribute("leavelist", plist);
-	       
 	
-	        return "leave";
+	  @RequestMapping(path = "/leaves", method = RequestMethod.POST)
+	    public String saveLeave(Leave l, Model model) {
+		  System.out.println(l.getFromDate());
+		  lRepo.save(l); 
+		  ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
+		  model.addAttribute("leavelist", plist);
+		  return "leave";
+		 
 	    }
 	    @RequestMapping(path = "/leaves", method = RequestMethod.GET)
 	    public String getAllLeave(Model model) {

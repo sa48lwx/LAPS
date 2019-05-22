@@ -1,9 +1,8 @@
 package com.example.portal.model;
 
+import java.sql.Date;
 
-
-import java.util.Date;
-
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,8 +11,6 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 @Entity
 @Table(name = "Leave_App")
 public class Leave {
@@ -21,7 +18,10 @@ public class Leave {
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
 	private String Id;
+	private long EmployeeId;
+	@Column(name = "overseas_contact_details")
 	private int overseasContactDetails;
+	
 	private String managerComment;
 	private double granularity;
 	private int leaveEntitlement;
@@ -42,9 +42,8 @@ public class Leave {
 		Description = description;
 	}
 	private String status;
-	@JsonFormat(pattern = "yyyy-MM-dd")
+	
 	private Date fromDate;
-	@JsonFormat(pattern = "yyyy-MM-dd")
 	private Date toDate;
 
 	public int getOverseasContactDetails() {

@@ -1,30 +1,53 @@
 <!DOCTYPE html>
 <html  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="ISO-8859-1">
-<title>Leave Form</title>
+    <title>Add Leave</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" th:href="@{/styles.css}"/>
 </head>
-<body>
-Leave
-	<form th:object="${leave}" th:action="@{/leaves}" method="post">
-		
-		<fieldset>
-			Type: <input type="text" th:field="*{leaveType}">
-			<p th:if="${#fields.hasErrors('leaveType')}" th:errors="*{leaveType}"></p>
-		</fieldset>
-		<fieldset>
-			Description: <input type="text" th:field="*{Description}">
-			<p th:if="${#fields.hasErrors('Description')}" th:errors="*{Description}"></p>
-		</fieldset>
-	<fieldset>
-			Description: <input type="text" th:field="*{from_date}">
-			<p th:if="${#fields.hasErrors('Description')}" th:errors="*{from_date}"></p>
-		</fieldset>
+<body style="text-align:left">
+<h1>Add Leave</h1>
+	<form action="#" th:action="@{/leaves}" th:object="${leave}" method="post">
+			<table>
+			<tr><td>overseasContactDetails (Integer): </td><td> <input type="text" th:field="*{overseasContactDetails}"></td><td>
+			</td></tr>
+			<tr><td>
+			managerComment (String):</td><td>  <input type="text" th:field="*{managerComment}"></td><td>
+			</td></tr>
+			<tr><td>
+			granularity (double):</td><td>  <input type="text" th:field="*{granularity}"></td><td>
+			</td></tr>
+			<tr><td>
+			leaveEntitlement (integer):</td><td>  <input type="text" th:field="*{leaveEntitlement}"></td><td>
+			</td></tr>
+			<tr><td>
+			status (String): </td><td> <input type="text" th:field="*{status}"></td><td>
+			</td></tr>
+			<tr><td>
+			fromDate (yyyy-MM-dd):</td><td>  <input type="date" th:field="*{fromDate}" /></td><td>
+			</td></tr>
+			<tr><td>
+			toDate (yyyy-MM-dd): </td><td> <input type="date" th:field="*{toDate}" /></td><td>
+			</td></tr>
+<			<tr> <td> leave_type:</td> <td> <select th:field="*{leave_type}">
+									   <option value=""> Choose leave type </option>
+									   <option th:value="Annual" th:text="Annual"/>
+									   <option th:value="Compensation" th:text="Compensation"/>
+									   <option th:value="Medical" th:text="Medical"/>
+									   </select> </td> </tr>
+			<tr><td>
+			reason (double):</td><td>  <input type="text" th:field="*{reason}"></td><td>
+			</td></tr>
+			<tr><td>
+			Description (String):</td><td> <input type="text" th:field="*{Description}"></td><td>
+			</td></tr>
+			<tr><td>
+			<input type="submit" value="submit" />
 
-		<fieldset>
-			<button style="background-color:green; height:160px;width:160px ; border:none" type="submit">Save</button>
-		</fieldset>
+			</td></tr>
+		</table>
 
 	</form>
 </body>
+
 </html>
