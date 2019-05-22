@@ -21,8 +21,7 @@ import  com.example.portal.repo.UserRepository;
 
 import com.example.portal.model.Holiday;
 
-import  com.example.portal.repo.UserRepository;
-import  com.example.portal.repo.HolidayRepository;
+import com.example.portal.repo.HolidayRepository;
 
 @Controller
 	public class UserController {
@@ -142,12 +141,9 @@ import  com.example.portal.repo.HolidayRepository;
 			 	  return "viewHoliday";
 		    }
 		    @RequestMapping(path = "/home/viewholiday", method = RequestMethod.GET)
-		    public String viewHoliday(@Valid  Holiday h, BindingResult bindingResult, Model model) {
-		    	if (bindingResult.hasErrors()) {
-		    		 return "addHoliday";
-		        }
-		  
-		  	  hRepo.save(h);
+		    public String viewHoliday( Model model) {
+		 
+		  	  
 	    	  ArrayList<Holiday> plist = (ArrayList<Holiday>) hRepo.findAll();
 			 	model.addAttribute("holiday", plist);
 		       
@@ -155,7 +151,7 @@ import  com.example.portal.repo.HolidayRepository;
 			 	  return "viewHoliday";
 		
 		    }
-
+		  
 	
 		  
 		    //admin- delete for holiday
