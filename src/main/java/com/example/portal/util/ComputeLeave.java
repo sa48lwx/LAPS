@@ -2,59 +2,91 @@ package com.example.portal.util;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
-import com.example.portal.repo.HolidayRepository;
 
 public class ComputeLeave {
 	
-	private HolidayRepository hRepo;
-	
-	@Autowired
-	public ComputeLeave(HolidayRepository hRepo) {
-		super();
-		this.hRepo = hRepo;
-	}
-
-	public long Compute(LocalDateTime start_date, LocalDateTime end_date) {
-		long days = getNumberOfDays(start_date, end_date);
-		if(days > 14) {
-			return days;
-		} else {
-			int c = 0;
-			for(int i = 0; i < days; i++) {
-				LocalDateTime checkDate = start_date.plusDays(i);
-				if(this.isHoliday(checkDate)) {
-					c++;
-				}
-				days -= c;
+		private LocalDateTime start_date;
+		private LocalDateTime end_date;
+		private float difference;
+		private float leave_period;
+		private int excludedDays;
+		private ArrayList<LocalDateTime> holidays;
+		
+		public ComputeLeave(LocalDateTime start_date, LocalDateTime end_date, ArrayList<LocalDateTime> holidays) {
+			super();
+			this.start_date = start_date;
+			this.end_date = end_date;
+			this.holidays = holidays;
+			this.calculateDiff();
+			this.calculateExcludedDays();
+			this.difference -= this.excludedDays;
+			if(isHalfDay(start_date)) {
+				this.difference -= 0.5f;
+			}
+			if(! isHalfDay(end_date)) {
+				this.difference -= 0.5f;
 			}
 		}
-		return days;
-	}
-	
-	public long getNumberOfDays(LocalDateTime start_date, LocalDateTime end_date) {
-		long days = Math.abs(start_date.compareTo(end_date));
-		return days;
-	}
-	
-	
-	public Boolean isHoliday(LocalDateTime date) {
-		List<LocalDateTime> Holidays = hRepo.findAllHolidays();
-		if(Holidays.contains(date)) {
-			return true;
+		
+		public ComputeLeave() {
+			super();
+			// TODO Auto-generated constructor stub
 		}
-		return false;
-	}
-	
-	
-	public Boolean isWorkDay(LocalDateTime date) {
-		int day = date.getDayOfWeek().getValue();
-		if((day >= 1) || (day <= 5)) {
-			return true;
+		@Override
+		public String toString() {
+			return "LeaveDateTime [start_date=" + start_date + ", end_date=" + end_date + ", difference=" + difference
+					+ ", leave_period=" + leave_period + "]";
 		}
-		return false;
+		public LocalDateTime getStart_date() {
+			return start_date;
+		}
+		public void setStart_date(LocalDateTime start_date) {
+			this.start_date = start_date;
+		}
+		public LocalDateTime getEnd_date() {
+			return end_date;
+		}
+		public void setEnd_date(LocalDateTime end_date) {
+			this.end_date = end_date;
+		}
+		public float getDifference() {
+			return difference;
+		}
+		public void setDifference(float difference) {
+			this.difference = difference;
+		}
+		public float getLeave_period() {
+			return leave_period;
+		}
+		public void setLeave_period(float leave_period) {
+			this.leave_period = leave_period;
+		}
+		
+		private void calculateDiff() {
+			Duration duration = Duration.between(start_date, end_date);
+			long d = duration.toDays();
+			if(start_date.getHour() > end_date.getHour())
+				d += 1;
+			this.difference = (float) d;
+		}
+		
+		private void calculateExcludedDays() {
+			int c = 0;
+			for(int i = 0; i <= this.difference; i++) {
+				if(holidays.stream().map(a -> a.toString().split("T")[0]).anyMatch(x -> x.equals(start_date.toString().split("T")[0]))) {
+					c++;
+				} else if (start_date.getDayOfWeek().getValue() > 5) {
+					c++;
+				}
+				start_date = start_date.plusDays(1);
+			}
+			this.excludedDays = c;
+		}
+		
+		private boolean isHalfDay(LocalDateTime d) {
+			return d.getHour() >= 12;
+		}
 	}
-}
