@@ -1,19 +1,15 @@
 package com.example.portal.controller;
 
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.time.Instant;
 import java.util.ArrayList;
-
+import com.example.portal.validator.LeaveValidator;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -49,14 +45,19 @@ public class AdminController {
     }
 	
 	  @RequestMapping(path = "/leaves", method = RequestMethod.POST)
-	    public String saveLeave(Leave l, Model model) {
-		  System.out.println(l.getFromDate());
+	    public String saveLeave(@ModelAttribute @Valid Leave l, BindingResult bindingResult, Model model) {
+
+			if (bindingResult.hasErrors()) {
+				return "edit";
+			}
+			
 		  lRepo.save(l); 
 		  ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 		  model.addAttribute("leavelist", plist);
 		  return "leave";
 		 
 	    }
+	  
 	    @RequestMapping(path = "/leaves", method = RequestMethod.GET)
 	    public String getAllLeave(Model model) {
 	    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
@@ -64,14 +65,16 @@ public class AdminController {
 	     
 	        return "leave";
 	    } 
+	    
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.GET)
-	    public String editLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
+	    public String editLeave( @PathVariable(value = "id") String id, Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);
 	    	System.out.println(l);
 	    	  lRepo.save(l);
 	        model.addAttribute("leaves", l);
 	        return "update";
 	    }
+	    
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.POST)
 	    public String updateLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
 	    	
@@ -82,6 +85,7 @@ public class AdminController {
 		
 		        return "leave";
 	    }
+	    
 	    @RequestMapping(path = "/leaves/delete/{id}", method = RequestMethod.GET)
 	    public String deleteLeave(@PathVariable(name = "id") String id) {
 	    	lRepo.delete(lRepo.findById(id).orElse(null));

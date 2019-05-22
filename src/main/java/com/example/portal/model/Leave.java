@@ -7,7 +7,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -21,10 +24,18 @@ public class Leave {
 	private long EmployeeId;
 	@Column(name = "overseas_contact_details")
 	private int overseasContactDetails;
-	
 	private String managerComment;
 	private double granularity;
 	private int leaveEntitlement;
+	private String status;
+	@NotEmpty(message = "*Please provide your reason")
+	private	String reason;
+	@NotNull
+	private Date fromDate;
+	@NotNull
+	private Date toDate;
+	private String leave_type;
+	private String Description;
 	
 	public Leave(String id, int overseasContactDetails, String managerComment, double granularity, int leaveEntitlement,
 			String status, Date fromDate, Date toDate, String reason, String leave_type, String description) {
@@ -41,10 +52,7 @@ public class Leave {
 		this.leave_type = leave_type;
 		Description = description;
 	}
-	private String status;
 	
-	private Date fromDate;
-	private Date toDate;
 
 	public int getOverseasContactDetails() {
 		return overseasContactDetails;
@@ -109,7 +117,7 @@ public class Leave {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
-	private	String reason;
+
 
 public String getId() {
 		return Id;
@@ -118,14 +126,14 @@ public String getId() {
 	public void setId(String id) {
 		Id = id;
 	}
-private String leave_type;
+
 public String getLeave_type() {
 	return leave_type;
 }
 public void setLeave_type(String leave_type) {
 	this.leave_type = leave_type;
 }
-private String Description;
+
 public Leave() {
 	super();
 	// TODO Auto-generated constructor stub
@@ -158,5 +166,15 @@ public String getDescription() {
 }
 public void setDescription(String description) {
 	Description = description;
+}
+
+
+public long getEmployeeId() {
+	return EmployeeId;
+}
+
+
+public void setEmployeeId(long employeeId) {
+	EmployeeId = employeeId;
 }
 }

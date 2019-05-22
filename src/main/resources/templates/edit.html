@@ -9,37 +9,24 @@
 <h1>Add Leave</h1>
 	<form action="#" th:action="@{/leaves}" th:object="${leave}" method="post">
 			<table>
-			<tr><td>overseasContactDetails (Integer): </td><td> <input type="text" th:field="*{overseasContactDetails}"></td><td>
-			</td></tr>
 			<tr><td>
-			managerComment (String):</td><td>  <input type="text" th:field="*{managerComment}"></td><td>
-			</td></tr>
+			fromDate (yyyy-MM-dd):</td><td>  <input type="date" th:field="*{fromDate}" /></td>
+			<td><p th:if="${#fields.hasErrors('fromDate')}" th:errors="*{fromDate}"></p></td>
+			</tr>
 			<tr><td>
-			granularity (double):</td><td>  <input type="text" th:field="*{granularity}"></td><td>
-			</td></tr>
-			<tr><td>
-			leaveEntitlement (integer):</td><td>  <input type="text" th:field="*{leaveEntitlement}"></td><td>
-			</td></tr>
-			<tr><td>
-			status (String): </td><td> <input type="text" th:field="*{status}"></td><td>
-			</td></tr>
-			<tr><td>
-			fromDate (yyyy-MM-dd):</td><td>  <input type="date" th:field="*{fromDate}" /></td><td>
-			</td></tr>
-			<tr><td>
-			toDate (yyyy-MM-dd): </td><td> <input type="date" th:field="*{toDate}" /></td><td>
-			</td></tr>
-<			<tr> <td> leave_type:</td> <td> <select th:field="*{leave_type}">
+			toDate (yyyy-MM-dd): </td><td> <input type="date" th:field="*{toDate}" /></td>
+			<td><p th:if="${#fields.hasErrors('toDate')}" th:errors="*{toDate}"></p></td>
+			</tr>
+			<tr> <td> leave_type:</td> <td> <select th:field="*{leave_type}">
 									   <option value=""> Choose leave type </option>
 									   <option th:value="Annual" th:text="Annual"/>
 									   <option th:value="Compensation" th:text="Compensation"/>
 									   <option th:value="Medical" th:text="Medical"/>
 									   </select> </td> </tr>
-			<tr><td>
-			reason (double):</td><td>  <input type="text" th:field="*{reason}"></td><td>
+			<tr><td>overseasContactDetails (Integer): </td><td> <input type="text" th:field="*{overseasContactDetails}"></td><td>
 			</td></tr>
 			<tr><td>
-			Description (String):</td><td> <input type="text" th:field="*{Description}"></td><td>
+			reason (String):</td><td>  <input type="text" th:field="*{reason}"></td><td>
 			</td></tr>
 			<tr><td>
 			<input type="submit" value="submit" />

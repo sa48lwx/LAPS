@@ -13,18 +13,19 @@
             <tr>
 
                 <th>Leave Type</th>
-                
-                <th>Description</th>
-        
-            
+                <th>From</th>
+                <th>To</th>
+                <th>Reason</th>
                 <th>Edit</th>
                 <th>Delete</th>
             </tr>
                <tr th:each="leave : ${leavelist}">
       
                         <td th:text="${leave.leave_type}">Type</td>
-                <td th:text="${leave.description}">Description</td>
-    
+                        <td th:text="${leave.fromDate}">From</td>
+                        <td th:text="${leave.toDate}">To</td>
+                <td th:text="${leave.reason}">Reason</td>
+    			
      
                 <td><a th:href="${'/leaves/edit/' + leave.id}" class="btn btn-default">Edit</a></td>
                 <td><a th:href="${'/leaves/delete/' +leave.id}" class="btn btn-danger">Delete</a></td>

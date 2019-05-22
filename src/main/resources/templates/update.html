@@ -10,16 +10,24 @@ Leave
 
 	<form th:object="${leaves}" th:action="@{/leaves/edit/{id}(id=${leaves.id})}" method="post">
 		<fieldset>
-			Name: <input type="text" th:field="*{id}" >
-				<p th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></p>
+			Leave Type: <select th:field="*{leave_type}">
+									   <option value=""> Choose leave type </option>
+									   <option th:value="Annual" th:text="Annual"/>
+									   <option th:value="Compensation" th:text="Compensation"/>
+									   <option th:value="Medical" th:text="Medical"/>
+									   </select> 
+				<p th:if="${#fields.hasErrors('leave_type')}" th:errors="*{leave_type}"></p>
 		</fieldset>
 		<fieldset>
-			Type: <input type="text" th:field="*{leaveType}">
-			<p th:if="${#fields.hasErrors('leaveType')}" th:errors="*{leaveType}"></p>
+			From: <input type="date" th:field="*{fromDate}" />
+			<p th:if="${#fields.hasErrors('fromDate')}" th:errors="*{fromDate}"></p>
 		</fieldset>
 		<fieldset>
-			Description: <input type="text" th:field="*{Description}">
-			<p th:if="${#fields.hasErrors('Description')}" th:errors="*{Description}"></p>
+			To: <input type="date" th:field="*{toDate}" />
+			<p th:if="${#fields.hasErrors('toDate')}" th:errors="*{toDate}"></p>
+		</fieldset>
+		<fieldset>
+			Reason: <input type="text" th:field="*{reason}">
 		</fieldset>
 	
 
