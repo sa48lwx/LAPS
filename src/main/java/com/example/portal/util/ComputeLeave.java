@@ -1,5 +1,6 @@
 package com.example.portal.util;
 
+import java.sql.Date;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,9 +14,9 @@ public class ComputeLeave {
 		private float difference;
 		private float leave_period;
 		private int excludedDays;
-		private ArrayList<LocalDateTime> holidays;
+		private ArrayList<Date> holidays;
 		
-		public ComputeLeave(LocalDateTime start_date, LocalDateTime end_date, ArrayList<LocalDateTime> holidays) {
+		public ComputeLeave(LocalDateTime start_date, LocalDateTime end_date, ArrayList<Date> holidays) {
 			super();
 			this.start_date = start_date;
 			this.end_date = end_date;
@@ -77,6 +78,7 @@ public class ComputeLeave {
 			int c = 0;
 			for(int i = 0; i <= this.difference; i++) {
 				if(holidays.stream().map(a -> a.toString().split("T")[0]).anyMatch(x -> x.equals(start_date.toString().split("T")[0]))) {
+					System.out.println("Is holiday!");
 					c++;
 				} else if (start_date.getDayOfWeek().getValue() > 5) {
 					c++;
