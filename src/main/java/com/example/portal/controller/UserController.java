@@ -15,20 +15,30 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.portal.model.Holiday;
+import com.example.portal.model.Leave;
+import com.example.portal.repo.HolidayRepository;
 import com.example.portal.model.User;
 import com.example.portal.repo.UserRepository;
 
 @Controller
 	public class UserController {
 		
-		
-		private UserRepository userRepository;
-		
-		@Autowired
-		public void setUserRepository(UserRepository userRepository) {
-			this.userRepository = userRepository;
+	private UserRepository userRepository;
+	private HolidayRepository hRepo;
+	
+	@Autowired
+	public void setUserRepository(UserRepository userRepository) {
+		this.userRepository = userRepository;
+	}
+    public HolidayRepository gethRepo() {
+			return hRepo;
 		}
-
+	@Autowired
+		public void sethRepo(HolidayRepository hRepo) {
+			this.hRepo = hRepo;
+		}
+	
 		//ADMIN- Controller for Home Page
 		@RequestMapping("/home")
 	    public String userhome() {
@@ -63,6 +73,23 @@ import com.example.portal.repo.UserRepository;
 	        model.addAttribute("users", userRepository.findAll());
 	        
 	        	return "showMessage";
+	    }
+		 //ADMIN-create holiday list
+	    @RequestMapping(path = "/home/addleave", method = RequestMethod.GET)
+	    public String createLeave(Model model) {
+	        model.addAttribute("holiday", new Holiday());
+	        return "addHoliday";
+	    }
+	
+	    @RequestMapping(path = "/home/addleave", method = RequestMethod.POST)
+	    public String updateHoliday( @PathVariable(value = "id") String id,@Valid Holiday h,Model model) {   	
+	    	
+	    	  hRepo.save(h);
+	    	  ArrayList<Holiday> plist = (ArrayList<Holiday>) hRepo.findAll();
+			 	model.addAttribute("holiday", plist);
+		       
+		
+		        return "viewHoliday";
 	    }
 	    //ADMIN- Controller for Edit Employee
 	
