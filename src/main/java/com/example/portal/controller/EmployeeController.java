@@ -48,15 +48,13 @@ public class EmployeeController {
         model.addAttribute("leave", new Leave());
         return "leaveform";
     }
-	  @RequestMapping(path = "/leaves/viewform", method = RequestMethod.POST)
+	
+	@RequestMapping(path = "/leaves/viewform", method = RequestMethod.POST)
 	    public String saveLeave(@Valid Leave l, BindingResult bindingResult, Model model) {
-		  	Date start_date = l.getFromDate();
-		    Date end_date = l.getToDate();
-		    ComputeLeave cl = new ComputeLeave(start_date, end_date);
 	    	if (bindingResult.hasErrors()) {
 	            return "redirect:addform";
 	        }
-	  
+	    	
 	        lRepo.save(l);
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 		 	model.addAttribute("leavelist", plist);
