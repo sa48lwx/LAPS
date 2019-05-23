@@ -24,17 +24,15 @@
 <tr><td>overseas Contact Details:</td>
 					<td><input type="text" th:field="*{overseasContactDetails}"></td>
 					<td th:if="${#fields.hasErrors('overseasContactDetails')}"
-						th:errors="*{overseasContactDetails}"></td>
-				</tr>
+						th:errors="*{overseasContactDetails}"></td></tr>
 <tr> <td> Status:</td> <td> <select th:field="*{status}">
 									   <option th:value="Pending" th:text="Pending"/>
-									   </select> </td> </tr>				
+									   </select> </td> </tr>						
 </table>
     <p>
         <input type="submit" id="button" value="Submit"/>  <input type="reset" id="button" value="Reset">
     </p>
  </fieldset>
-
 </form>
 
 

@@ -41,7 +41,7 @@ public class AdminController {
 	@RequestMapping(path = "/leaves/add", method = RequestMethod.GET)
     public String createLeave(Model model) {
         model.addAttribute("leave", new Leave());
-        return "edit";
+        return "leaveform";
     }
 	/*
 	 * @RequestMapping(path = "/leaves/createLeave", method = RequestMethod.POST)
@@ -65,7 +65,7 @@ public class AdminController {
 	  @RequestMapping(path = "/leaves", method = RequestMethod.POST)
 	    public String saveLeave(@Valid Leave l, BindingResult bindingResult, Model model) {
 	    	if (bindingResult.hasErrors()) {
-	            return "edit";
+	            return "leaveform";
 	        }
 	  
 	        lRepo.save(l);

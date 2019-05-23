@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import  com.example.portal.model.Leave;
+import com.example.portal.model.User;
 import  com.example.portal.repo.LeaveRepository;
 import  com.example.portal.repo.UserRepository;
 import com.example.portal.util.ComputeLeave;
@@ -93,9 +94,9 @@ public class EmployeeController {
 	        return "redirect:/leaves/viewform";
 	    }
 	    //note hardcoded, edit to /claimcompensation/{employeeid} 
-	    @RequestMapping(path = "/claimcompensation/{employeeid}", method = RequestMethod.GET)
-	    public String EditUser( @PathVariable(value = "employeeid") long employeeid,@Valid User user,Model model, Leave leave) { 
-	    	employeeid = 2;
+	    @RequestMapping(path = "/claimcompensation", method = RequestMethod.GET)
+	    public String EditLeave( @Valid User user,Model model, Leave leave) { 
+	    	long employeeid = 2;
 	    	user = mRepo.findById(employeeid).orElse(null);
 	    	System.out.println(user );
 	    	mRepo.save(user );
