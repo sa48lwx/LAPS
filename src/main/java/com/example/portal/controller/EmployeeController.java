@@ -1,4 +1,5 @@
 package com.example.portal.controller;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.validation.Valid;
@@ -10,14 +11,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import  com.example.portal.model.Leave;
-import  com.example.portal.model.User;
 import  com.example.portal.repo.LeaveRepository;
 import  com.example.portal.repo.UserRepository;
-
-import com.example.portal.model.Holiday;
-
-import com.example.portal.repo.HolidayRepository;
+import com.example.portal.util.ComputeLeave;
 
 
 @Controller
@@ -51,16 +49,18 @@ public class EmployeeController {
     }
 	  @RequestMapping(path = "/leaves/viewform", method = RequestMethod.POST)
 	    public String saveLeave(@Valid Leave l, BindingResult bindingResult, Model model) {
+		  	Date start_date = l.getFromDate();
+		    Date end_date = l.getToDate();
+		    ComputeLeave cl = new ComputeLeave(start_date, end_date);
 	    	if (bindingResult.hasErrors()) {
-	            return "viewleaveform";
+	            return "redirect:addform";
 	        }
 	  
 	        lRepo.save(l);
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 		 	model.addAttribute("leavelist", plist);
-	       
 	
-	        return "leaveform";
+	        return "leave";
 	    }
 	  @RequestMapping(path = "/leaves/viewform", method = RequestMethod.GET)
 	    public String getAllLeave(Model model) {
