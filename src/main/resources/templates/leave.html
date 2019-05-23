@@ -14,7 +14,7 @@
 
                 <th>Leave Type</th>
                 
-                <th>Description</th>
+                <th>Reason</th>
         <th>FromDate</th>
         <th>ToDate</th>
         
@@ -26,7 +26,7 @@
                <tr th:each="leave : ${leavelist}">
       
                         <td th:text="${leave.leave_type}">Type</td>
-                <td th:text="${leave.description}">Description</td>
+                <td th:text="${leave.reason}">Reason</td>
     
         <td th:text="${leave.fromDate}">fromDate</td>
            <td th:text="${leave.toDate}">toDate</td>

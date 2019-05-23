@@ -103,6 +103,11 @@ public class EmployeeController {
 	        model.addAttribute("Leave",l);
 	        return "compensationform";
 	    }
-	  
-
+		  @RequestMapping(path = "/approvecompensation", method = RequestMethod.GET)
+		    public String getPending(Model model) {
+		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingCompensationLeave();
+		 		model.addAttribute("leavelist", plist);
+		     
+		        return "approvecompensation";
+		    } 
 }
