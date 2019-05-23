@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
@@ -18,9 +18,10 @@
         <th>FromDate</th>
         <th>ToDate</th>
         
-            
+            	<th>Status</th>
                 <th>Edit</th>
                 <th>Delete</th>
+                
             </tr>
                <tr th:each="leave : ${leavelist}">
       
@@ -29,6 +30,7 @@
     
         <td th:text="${leave.fromDate}">fromDate</td>
            <td th:text="${leave.toDate}">toDate</td>
+                      <td th:text="${leave.status}">Status</td>
                 <td><a th:href="${'/leaves/edit/' + leave.id}" class="btn btn-default">Edit</a></td>
                 <td><a th:href="${'/leaves/delete/' +leave.id}" class="btn btn-danger">Delete</a></td>
             </tr>

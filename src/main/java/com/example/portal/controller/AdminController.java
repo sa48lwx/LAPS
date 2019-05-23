@@ -43,26 +43,24 @@ public class AdminController {
         model.addAttribute("leave", new Leave());
         return "edit";
     }
-	  @RequestMapping(path = "/leaves/createLeave", method = RequestMethod.POST)
-	    public String savenewLeave(@Valid Leave l, BindingResult bindingResult, Model model) {
-	    	if (bindingResult.hasErrors()) {
-	            return "edit";
-	        }
-	  
-	        lRepo.save(l);
-	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-		 	model.addAttribute("leavelist", plist);
-	       
-	
-	        return "createleave";
-	    }
-	    @RequestMapping(path = "/leaves/createLeave", method = RequestMethod.GET)
-	    public String getLeave(Model model) {
-
-	 		model.addAttribute("leavelist", new Leave());
-	     
-	        return "createleave";
-	    } 
+	/*
+	 * @RequestMapping(path = "/leaves/createLeave", method = RequestMethod.POST)
+	 * public String savenewLeave(@Valid Leave l, BindingResult bindingResult, Model
+	 * model) { if (bindingResult.hasErrors()) { return "edit"; }
+	 * 
+	 * lRepo.save(l); ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
+	 * model.addAttribute("leavelist", plist);
+	 * 
+	 * 
+	 * return "createleave"; }
+	 * 
+	 * @RequestMapping(path = "/leaves/createLeave", method = RequestMethod.GET)
+	 * public String getLeave(Model model) {
+	 * 
+	 * model.addAttribute("leavelist", new Leave());
+	 * 
+	 * return "edit"; }
+	 */
 	
 	  @RequestMapping(path = "/leaves", method = RequestMethod.POST)
 	    public String saveLeave(@Valid Leave l, BindingResult bindingResult, Model model) {

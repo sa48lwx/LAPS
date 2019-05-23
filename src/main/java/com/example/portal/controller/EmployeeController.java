@@ -92,7 +92,18 @@ public class EmployeeController {
 	    	m.addAttribute("leaves", l);
 	        return "redirect:/leaves/viewform";
 	    }
-	    
+	    //note hardcoded, edit to /claimcompensation/{employeeid} 
+	    @RequestMapping(path = "/claimcompensation/{employeeid}", method = RequestMethod.GET)
+	    public String EditUser( @PathVariable(value = "employeeid") long employeeid,@Valid User user,Model model, Leave leave) { 
+	    	employeeid = 2;
+	    	user = mRepo.findById(employeeid).orElse(null);
+	    	System.out.println(user );
+	    	mRepo.save(user );
+	        model.addAttribute("user", user);
+	        Leave l = new Leave();
+	        model.addAttribute("Leave",l);
+	        return "compensationform";
+	    }
 	  
 
 }
