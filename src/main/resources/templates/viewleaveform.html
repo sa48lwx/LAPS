@@ -15,6 +15,13 @@
                 <th>Leave Type</th>
                 
                 <th>Description</th>
+                <th>Granularity</th>
+                <th>managerComment</th>
+                <th>     overseasContactDetails</th>
+                <th>EmployeeId</th>
+                <th>   status</th>
+                <th>reason</th>
+                <th>leaveEntitlement</th>
         <th>FromDate</th>
         <th>ToDate</th>
         
@@ -26,11 +33,22 @@
       
                         <td th:text="${leave.leave_type}">Type</td>
                 <td th:text="${leave.description}">Description</td>
-    
+                           <td th:text="${leave.granularity}">Granularity</td>
+
+       <td th:text="${leave.managerComment}">   managerComment</td>
+     
+      
+              <td th:text="${leave.overseasContactDetails}">overseasContactDetails</td>
+  
+           <td th:text="${leave.EmployeeId}">    EmployeeId</td>
+        
+                      <td th:text="${leave.status}">      status</td>
+                      <td th:text="${leave.reason}">  reason</td>
+   <td th:text="${leave.leaveEntitlement}">   leaveEntitlement</td>
         <td th:text="${leave.fromDate}">fromDate</td>
            <td th:text="${leave.toDate}">toDate</td>
-                <td><a th:href="${'/leaves/edit/' + leave.id}" class="btn btn-default">Edit</a></td>
-                <td><a th:href="${'/leaves/delete/' +leave.id}" class="btn btn-danger">Delete</a></td>
+                <td><a th:href="${'/leaves/editform/' + leave.id}" class="btn btn-default">Edit</a></td>
+                <td><a th:href="${'/leaves/deleteform/' +leave.id}" class="btn btn-danger">Delete</a></td>
             </tr>
  </table>
 

@@ -10,19 +10,18 @@
 
 <h1>Add Holiday</h1>
 
-<form action="#" th:action="@{/home/addleave}" th:object="${holiday}" method="post">
+<form action="#" th:action="@{/home/addholiday}" th:object="${holiday}" method="post">
 
 <fieldset>
 	<table id="usertable">
-	<tr> <td>Id: </td> <td>  <input type="text" th:field="*{Id}"></td> </tr>
+
 
 	<tr> <td> Holiday Name:</td>
 <td> 
 	
-	<input type="text" ></td>  
-	<td>  <input type="text" th:field="*{name}"></td>
+	<input type="text" th:field="*{name}"></td>  
 	</tr>
-	<tr> <td> Date:</td> <td> <input type="date" name="bday" min="2000-01-02" th:field="*{fromDate}"> </td> </tr>
+	<tr> <td> Date:</td> <td> <input type="date" name="bday" min="2000-01-02" th:field="*{date}"> </td> </tr>
 	 
 	</table>
     <p>

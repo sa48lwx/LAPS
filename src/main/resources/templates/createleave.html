@@ -11,7 +11,7 @@
         <h2>All Leaves</h2>
 <table class="table table-striped" border="1" align="center" id="customers">
             <tr>
-
+<th>Leave Id</th>
                 <th>Leave Type</th>
                 
                 <th>Description</th>
@@ -23,6 +23,7 @@
                 <th>Delete</th>
             </tr>
                <tr th:each="leave : ${leavelist}">
+                  <td th:text="${leave.id}">Leave Id</td>
       
                         <td th:text="${leave.leave_type}">Type</td>
                 <td th:text="${leave.description}">Description</td>
