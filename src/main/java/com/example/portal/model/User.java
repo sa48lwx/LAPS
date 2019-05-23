@@ -8,6 +8,13 @@ import javax.persistence.GenerationType;
 //import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import com.example.portal.validator.CompHourValidator;
+import com.example.portal.validator.IsValidCompHour;
+import com.example.portal.validator.IsValidPhoneNumber;
+import com.example.portal.validator.PhoneNumberValidator;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -23,13 +30,22 @@ public class User {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "employeeid", updatable = false, nullable = false)
 	private long employeeid;
+	@NotEmpty(message="Name is mandatory")
 	private String employeename;
+	@NotEmpty(message = "Please choose a role")
 	private String employeediv;
+	@IsValidPhoneNumber
 	private long employeecontact;
+	@NotEmpty(message = "Email is mandatory")
+	@Email(message = "Please provide a valid email address")
 	private String employeemail;
+	@NotEmpty(message = "Employee approver is mandatory")
 	private String reportsto;
+	@NotEmpty(message =  "Leave entitled is mandatory")
 	private String leaveentitled;
+	@IsValidCompHour
 	private double comphours;
+	private long leaveid;
 	
 	public long getEmployeeid() {
 		return employeeid;

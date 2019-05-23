@@ -96,23 +96,38 @@ public class AdminController {
 	        return "leave";
 	    } 
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.GET)
-	    public String editLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
+	    public String editLeave( @PathVariable(value = "id") String id,Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);
 	    	System.out.println(l);
 	    	  lRepo.save(l);
 	        model.addAttribute("leaves", l);
 	        return "update";
 	    }
-	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.POST)
-	    public String updateLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
-	    	
-	    	  lRepo.save(l);
-	    	  ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-			 	model.addAttribute("leavelist", plist);
-		       
-		
-		        return "leave";
-	    }
+
+	/*
+	 * @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.POST)
+	 * public String updateLeave( @PathVariable(value = "id") String id,@Valid Leave
+	 * l,Model model) {
+	 * 
+	 * lRepo.save(l); ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
+	 * model.addAttribute("leavelist", plist);
+	 * 
+	 * 
+	 * return "leave"; }
+	 */
+		@RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.POST)
+		public String updateLeave(@PathVariable(value = "id") String id, @Valid Leave l,
+				BindingResult bindingResult, Model model) {
+
+			if (bindingResult.hasErrors()) {
+				return "leaveform";
+			}
+			lRepo.save(l);
+			ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
+			model.addAttribute("leavelist", plist);
+
+			return "leave";
+		}
 	    @RequestMapping(path = "/leaves/delete/{id}", method = RequestMethod.GET)
 	    public String deleteLeave(@PathVariable(name = "id") String id) {
 	    	lRepo.delete(lRepo.findById(id).orElse(null));

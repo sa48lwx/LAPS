@@ -65,18 +65,29 @@ public class UserController {
     }
 
 	    
-    @PostMapping("/home/addEmployee")
-    public String processForm(@Valid User user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
-        	model.addAttribute("managers", userRepository.findAll());
-            return "addEmployee";
-        }
-         
-        userRepository.save(user);
-        model.addAttribute("users", userRepository.findAll());
-        
-        	return "showMessage";
-    }
+	/*
+	 * @PostMapping("/home/addEmployee")public String processForm(@Valid User user,
+	 * BindingResult result, Model model) { if (result.hasErrors()) {
+	 * model.addAttribute("managers", userRepository.findAll()); return
+	 * "addEmployee"; }
+	 * 
+	 * userRepository.save(user); model.addAttribute("users",
+	 * userRepository.findAll());
+	 * 
+	 * return "showMessage"; }
+	 */
+	 @PostMapping("/home/addEmployee")
+	    public String processForm(@Valid User user, BindingResult result, Model model) {
+	        if (result.hasErrors()) {
+	        	model.addAttribute("managers", userRepository.findAll());
+	            return "addEmployee";
+	        }
+	         
+	        userRepository.save(user);
+	        model.addAttribute("users", userRepository.findAll());
+	        
+	        	return "showMessage";
+	    }
     //ADMIN- Controller for Edit Employee
 
     @RequestMapping(path = "/home/edit/{employeeid}", method = RequestMethod.GET)
