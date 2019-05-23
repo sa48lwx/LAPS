@@ -9,7 +9,7 @@ import  com.example.portal.model.Leave;
 
 
 @Repository
-public interface LeaveRepository extends JpaRepository<Leave,String> {
+public interface LeaveRepository extends JpaRepository<Leave,Integer> {
 	@Query(
 			  value = "SELECT * FROM leave_app where status='Pending' AND leave_type='Compensation'", 
 			  nativeQuery = true)

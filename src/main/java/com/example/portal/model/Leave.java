@@ -18,15 +18,15 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name = "Leave_App")
 public class Leave {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO, generator = "system-uuid")
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
-	private String Id;
+	private int Id;
 	@Column(name = "overseas_contact_details")
 	private int overseasContactDetails;
 	@Column(name = "manager_comment")
 	private String managerComment;
 
-	public Leave(String id, int overseasContactDetails, String managerComment, double granularity,
+	public Leave(int id, int overseasContactDetails, String managerComment, double granularity,
 			int leaveEntitlement, long employeeId, String status, String reason, Date fromDate, Date toDate,
 			String leave_type, String description) {
 		super();
@@ -63,7 +63,8 @@ public class Leave {
 	private String leave_type;
 	@Column(name = "to_date")
 	private Date toDate;
-//	
+	private Double duration;
+	
 //	public Leave(String id, int overseasContactDetails, String managerComment, double granularity, int leaveEntitlement,
 //			User reportsTo, String status, Date fromDate, Date toDate, String reason, String leave_type,
 //			String description) {
@@ -90,7 +91,17 @@ public class Leave {
 //		this.reportsTo = reportsTo;
 //	}
 
-	public Leave(String id, int overseasContactDetails, String managerComment, double granularity, int leaveEntitlement,
+	public Double getDuration() {
+		return duration;
+	}
+
+
+	public void setDuration(Double duration) {
+		this.duration = duration;
+	}
+
+
+	public Leave(int id, int overseasContactDetails, String managerComment, double granularity, int leaveEntitlement,
 			String status, Date fromDate, Date toDate, String reason, String leave_type, String description) {
 		super();
 		Id = id;
@@ -172,11 +183,11 @@ public class Leave {
 	}
 
 
-public String getId() {
+public int getId() {
 		return Id;
 	}
 
-	public void setId(String id) {
+	public void setId(int id) {
 		Id = id;
 	}
 
@@ -193,7 +204,7 @@ public Leave() {
 }
 
 
-public Leave(String id, String leave_type, String description) {
+public Leave(int id, String leave_type, String description) {
 	super();
 	Id = id;
 	this.leave_type = leave_type;

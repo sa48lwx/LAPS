@@ -81,7 +81,8 @@ public class AdminController {
 	    	List<Holiday> hols = hRepo.findAll();
 	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
 	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
-	    	float diff = ldt.getDifference();
+	    	double diff = ldt.getDifference();
+	    	l.setDuration(diff);
 	        lRepo.save(l);
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 	    	model.addAttribute("leave_period", diff);
@@ -96,7 +97,7 @@ public class AdminController {
 	        return "leave";
 	    } 
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.GET)
-	    public String editLeave( @PathVariable(value = "id") String id,Leave l,Model model) {   	
+	    public String editLeave( @PathVariable(value = "id") int id,Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);
 	    	System.out.println(l);
 	    	  lRepo.save(l);
@@ -129,7 +130,7 @@ public class AdminController {
 			return "leave";
 		}
 	    @RequestMapping(path = "/leaves/delete/{id}", method = RequestMethod.GET)
-	    public String deleteLeave(@PathVariable(name = "id") String id) {
+	    public String deleteLeave(@PathVariable(name = "id") int id) {
 	    	lRepo.delete(lRepo.findById(id).orElse(null));
 	        return "redirect:/leaves";
 	    }

@@ -69,7 +69,7 @@ public class EmployeeController {
 	        return "viewleaveform";
 	    } 
 	    @RequestMapping(path = "/leaves/editform/{id}", method = RequestMethod.GET)
-	    public String editLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
+	    public String editLeave( @PathVariable(value = "id") int id,@Valid Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);
 	    	System.out.println(l);
 	    	  lRepo.save(l);
@@ -86,14 +86,14 @@ public class EmployeeController {
 			     return "redirect:/leaves/viewform";
 	    }
 	    @RequestMapping(path = "/leaves/deleteform/{id}", method = RequestMethod.GET)
-	    public String deleteLeave(@PathVariable(name = "id") String id,Model m,Leave l) {
+	    public String deleteLeave(@PathVariable(name = "id") int id,Model m,Leave l) {
 	    	lRepo.delete(lRepo.findById(id).orElse(null));
 	    	m.addAttribute("leaves", l);
 	        return "redirect:/leaves/viewform";
 	    }
 	    //note hardcoded, edit to /claimcompensation/{employeeid} 
 	    @RequestMapping(path = "/claimcompensation", method = RequestMethod.GET)
-	    public String EditLeave( @Valid User user,Model model, Leave leave) { 
+	    public String EditLeave(User user,Model model, Leave leave) { 
 	    	long employeeid = 2;
 	    	user = mRepo.findById(employeeid).orElse(null);
 	    	System.out.println(user );
