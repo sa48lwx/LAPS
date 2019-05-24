@@ -9,7 +9,7 @@
 <div class="container">
    
         <h2>All Leaves</h2>
-<form action="#" th:action="@{/leaves}" th:object="${leave}" method="post">
+<form action="#" th:action="@{/approvecompensation}" th:object="${leave}" method="post">
 <table>
             <tr>
 
@@ -26,11 +26,8 @@
 <td th:text="${leave.fromDate}">fromDate</td>
 <td th:text="${leave.toDate}">toDate</td>
 <td th:text="${leave.status}">Status</td>
-<td><select field="*{status}">
-<option value="Approved" >Approve</option>
-<option value="Rejected" >Reject</option>
-</select></td>
-<td><input type="text" field="*{manager_comment}"></td>
+<td><a th:href="${'/leaves/edit/managerview/' + leave.id}"
+					class="btn btn-default">Select For Approval</a></td>
 
 </tr>
  </table>

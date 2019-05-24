@@ -1,6 +1,8 @@
 package com.example.portal.controller;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
@@ -12,17 +14,27 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.example.portal.model.Holiday;
 import  com.example.portal.model.Leave;
 import com.example.portal.model.User;
+import com.example.portal.repo.HolidayRepository;
 import  com.example.portal.repo.LeaveRepository;
 import  com.example.portal.repo.UserRepository;
+import com.example.portal.service.LeaveServiceIF;
 import com.example.portal.util.ComputeLeave;
 
 
 @Controller
-public class EmployeeController {
+public class EmployeeController implements LeaveServiceIF{
 	private UserRepository mRepo;
 	private LeaveRepository lRepo;
+	private HolidayRepository hRepo;
+	
+	@Autowired
+	public void sethRepo(HolidayRepository hRepo) {
+		this.hRepo = hRepo;
+	}
+
 	@Autowired
 	public void setlRepo(LeaveRepository lRepo) {
 		this.lRepo = lRepo;
@@ -55,7 +67,7 @@ public class EmployeeController {
 	            return "redirect:addform";
 	        }
 	    	
-	        lRepo.save(l);
+	        l=SaveLeave(l);
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 		 	model.addAttribute("leavelist", plist);
 	
@@ -79,7 +91,7 @@ public class EmployeeController {
 	    @RequestMapping(path = "/leaves/editform/{id}", method = RequestMethod.POST)
 	    public String updateLeave( @PathVariable(value = "id") String id,@Valid Leave l,Model model) {   	
 	    	
-	    	  lRepo.save(l);
+	    	  l=SaveLeave(l);
 	    	  ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 			 	model.addAttribute("leavelist", plist);
 		       
@@ -109,5 +121,32 @@ public class EmployeeController {
 		 		model.addAttribute("leavelist", plist);
 		     
 		        return "approvecompensation";
-		    } 
+		    }
+		  @RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
+		  public String updateCompensation( @PathVariable(value = "id") int id,Leave l,Model model) {   	
+		    	l = lRepo.findById(id).orElse(null);
+		    	System.out.println(l);
+		    	  lRepo.save(l);
+		        model.addAttribute("leaves", l);
+		        return "updateCompensation";
+		    }
+
+		@Override
+		public Leave SaveLeave(Leave l) {
+			System.out.println("IN, we reached here1");
+			List<Holiday> hols = hRepo.findAll();
+			System.out.println("IN, we reached here2");
+	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
+	    	System.out.println("IN, we reached here3");
+	    	System.out.println(l.getToDate());
+	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
+	    	System.out.println("IN, we reached here4");
+	    	double diff = ldt.getDifference();
+	    	System.out.println("IN, we reached here5");
+	    	l.setDuration(diff);
+	    	System.out.println("IN, we reached here6");
+	    	lRepo.save(l);
+	        return l;
+		} 
+		
 }
