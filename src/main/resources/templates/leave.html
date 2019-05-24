@@ -38,11 +38,7 @@
 					class="btn btn-danger">Delete</a></td>
 			</tr>
 		</table>
-<!-- Pagination -->
-	<span class="nav-item" th:each="i: ${#numbers.sequence(1,leavelist.totalPages)}">	
-		<a th:text="${i}" th:href="@{/leaves/(page=${i})}"  class="nav-link" 
-		th:classappend="${currentPage}==${i}?'active':''"></a>					
-	</span>
+
 </div>
 <style>
 a:link, a:visited {

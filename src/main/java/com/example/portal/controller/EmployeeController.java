@@ -116,21 +116,35 @@ public class EmployeeController implements LeaveServiceIF{
 	        return "compensationform";
 	    }
 		  @RequestMapping(path = "/approvecompensation", method = RequestMethod.GET)
-		    public String getPending(Model model) {
+		    public String getPendingCompensation(Model model) {
 		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingCompensationLeave();
 		 		model.addAttribute("leavelist", plist);
 		     
 		        return "approvecompensation";
 		    }
-		  @RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
+		  @RequestMapping(path = "/compleaves/edit/managerview/{id}", method = RequestMethod.GET)
 		  public String updateCompensation( @PathVariable(value = "id") int id,Leave l,Model model) {   	
 		    	l = lRepo.findById(id).orElse(null);
 		    	System.out.println(l);
 		    	  lRepo.save(l);
 		        model.addAttribute("leaves", l);
-		        return "updateCompensation";
+		        return "updateLeave";
 		    }
-
+		  @RequestMapping(path = "/approveleave", method = RequestMethod.GET)
+		    public String getPendingLeaves(Model model) {
+		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingLeave();
+		 		model.addAttribute("leavelist", plist);
+		     
+		        return "approveleave";
+		    }
+		  @RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
+		  public String updateleaves( @PathVariable(value = "id") int id,Leave l,Model model) {   	
+		    	l = lRepo.findById(id).orElse(null);
+		    	System.out.println(l);
+		    	  lRepo.save(l);
+		        model.addAttribute("leaves", l);
+		        return "updateLeave";
+		    }
 		@Override
 		public Leave SaveLeave(Leave l) {
 			List<Holiday> hols = hRepo.findAll();
