@@ -133,7 +133,7 @@ public class EmployeeController implements LeaveServiceIF{
 		    }
 		  @RequestMapping(path = "/approveleave", method = RequestMethod.GET)
 		    public String getPendingLeaves(Model model) {
-		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingLeave();
+		    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingCompensationLeave();
 		 		model.addAttribute("leavelist", plist);
 		     
 		        return "approveleave";
