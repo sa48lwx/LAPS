@@ -80,14 +80,9 @@ public class AdminController implements LeaveServiceIF{
 	    	if (bindingResult.hasErrors()) {
 	            return "leaveform";
 	        }
-	    	System.out.println("leave havent saved");
-	    	
 	    	l=SaveLeave(l);
-	    	System.out.println("leave saved");
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-	    	System.out.println("leave saved2");
 	    	model.addAttribute("leave_period", l.getDuration());
-	    	System.out.println("leave saved3");
 		 	model.addAttribute("leavelist", plist);
 	        return "leave";
 	    }
@@ -125,7 +120,7 @@ public class AdminController implements LeaveServiceIF{
 			if (bindingResult.hasErrors()) {
 				return "leaveform";
 			}
-			lRepo.save(l);
+			l=SaveLeave(l);
 			ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
 			model.addAttribute("leavelist", plist);
 
