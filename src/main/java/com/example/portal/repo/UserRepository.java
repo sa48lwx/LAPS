@@ -7,7 +7,4 @@ import  com.example.portal.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long>{
 
-
-	
-
 }

@@ -42,7 +42,7 @@ public class User {
 	@NotEmpty(message = "Employee approver is mandatory")
 	private String reportsto;
 	@NotEmpty(message =  "Leave entitled is mandatory")
-	private String leaveentitled;
+	private double leaveentitled;
 	@IsValidCompHour
 	private double comphours;
 	private long leaveid;
@@ -84,12 +84,6 @@ public class User {
 	public void setReportsto(String reportsto) {
 		this.reportsto = reportsto;
 	}
-	public String getLeaveentitled() {
-		return leaveentitled;
-	}
-	public void setLeaveentitled(String leaveentitled) {
-		this.leaveentitled = leaveentitled;
-	}
 	public double getComphours() {
 		return comphours;
 	}
@@ -97,8 +91,14 @@ public class User {
 		this.comphours = comphours;
 	}
 	
+	public double getLeaveentitled() {
+		return leaveentitled;
+	}
+	public void setLeaveentitled(double leaveentitled) {
+		this.leaveentitled = leaveentitled;
+	}
 	public User(String employeename, String employeediv, long employeecontact,
-			String employeemail, String reportsto, String leaveentitled, double comphours) {
+			String employeemail, String reportsto, double leaveentitled, double comphours) {
 		super();
 		
 		this.employeename = employeename;

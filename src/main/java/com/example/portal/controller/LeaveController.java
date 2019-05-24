@@ -3,6 +3,7 @@ package com.example.portal.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -26,7 +27,7 @@ import com.example.portal.util.ComputeLeave;
 
 @Controller
 public class LeaveController implements LeaveServiceIF{
-	private UserRepository mRepo;
+	private UserRepository uRepo;
 	private LeaveRepository lRepo;
 	private HolidayRepository hRepo;
 	@Autowired
@@ -35,8 +36,8 @@ public class LeaveController implements LeaveServiceIF{
 	}
 
 	@Autowired
-	public void setmRepo(UserRepository mRepo) {
-		this.mRepo = mRepo;
+	public void setmRepo(UserRepository uRepo) {
+		this.uRepo = uRepo;
 	}
 	
 	@Autowired
@@ -134,10 +135,22 @@ public class LeaveController implements LeaveServiceIF{
  		model.addAttribute("leavelist", plist);
         return "approveleave";
     }
+	
+	//approve leave
 	@RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
 	  public String updateleaves( @PathVariable(value = "id") int id,Leave l,Model model) {   	
-	    	l = lRepo.findById(id).orElse(null);
-	    	System.out.println(l);
+	    	
+		Optional<User> u = uRepo.findById(l.getEmployeeId());
+		if(u.isPresent()) {
+			System.out.println(u.get());
+			User user = u.get();
+			double now = user.getLeaveentitled();
+			now -= l.getDuration();
+			user.setLeaveentitled(now);
+			uRepo.save(user);
+			System.out.println(user);
+		}
+		l = lRepo.findById(id).orElse(null);
 	    	  lRepo.save(l);
 	        model.addAttribute("leaves", l);
 	        return "updateLeave";
@@ -160,9 +173,9 @@ public class LeaveController implements LeaveServiceIF{
     @RequestMapping(path = "/claimcompensation", method = RequestMethod.GET)
     public String EditLeave(User user,Model model, Leave leave) { 
     	long employeeid = 48;
-    	user = mRepo.findById(employeeid).orElse(null);
+    	user = uRepo.findById(employeeid).orElse(null);
     	System.out.println(user );
-    	mRepo.save(user );
+    	uRepo.save(user );
         model.addAttribute("user", user);
         Leave l = new Leave();
         model.addAttribute("Leave",l);

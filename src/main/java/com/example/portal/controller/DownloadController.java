@@ -44,7 +44,7 @@ public class DownloadController {
 				String[] data= new String[] {
 						(String) users.getEmployeename(),
 						users.getEmployeediv(),
-						users.getLeaveentitled(),
+						//users.getleaveentitled(),
 						users.getReportsto(),
 						users.getEmployeemail(),
 //						(String)users.getComphours()
