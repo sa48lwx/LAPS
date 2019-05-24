@@ -117,35 +117,43 @@ public class EmployeeController implements LeaveServiceIF{
 	        return "compensationform";
 	    }
 		  @RequestMapping(path = "/approvecompensation", method = RequestMethod.GET)
-		    public String getPending(Model model) {
+		    public String getPendingCompensation(Model model) {
 		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingCompensationLeave();
 		 		model.addAttribute("leavelist", plist);
 		     
 		        return "approvecompensation";
 		    }
-		  @RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
+		  @RequestMapping(path = "/compleaves/edit/managerview/{id}", method = RequestMethod.GET)
 		  public String updateCompensation( @PathVariable(value = "id") int id,Leave l,Model model) {   	
 		    	l = lRepo.findById(id).orElse(null);
 		    	System.out.println(l);
 		    	  lRepo.save(l);
 		        model.addAttribute("leaves", l);
-		        return "updateCompensation";
+		        return "updateLeave";
 		    }
-
+		  @RequestMapping(path = "/approveleave", method = RequestMethod.GET)
+		    public String getPendingLeaves(Model model) {
+		    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAllPendingLeave();
+		 		model.addAttribute("leavelist", plist);
+		     
+		        return "approveleave";
+		    }
+		  @RequestMapping(path = "/leaves/edit/managerview/{id}", method = RequestMethod.GET)
+		  public String updateleaves( @PathVariable(value = "id") int id,Leave l,Model model) {   	
+		    	l = lRepo.findById(id).orElse(null);
+		    	System.out.println(l);
+		    	  lRepo.save(l);
+		        model.addAttribute("leaves", l);
+		        return "updateLeave";
+		    }
 		@Override
 		public Leave SaveLeave(Leave l) {
-			System.out.println("IN, we reached here1");
 			List<Holiday> hols = hRepo.findAll();
-			System.out.println("IN, we reached here2");
 	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
-	    	System.out.println("IN, we reached here3");
 	    	System.out.println(l.getToDate());
 	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
-	    	System.out.println("IN, we reached here4");
 	    	double diff = ldt.getDifference();
-	    	System.out.println("IN, we reached here5");
 	    	l.setDuration(diff);
-	    	System.out.println("IN, we reached here6");
 	    	lRepo.save(l);
 	        return l;
 		} 

@@ -16,6 +16,13 @@ public interface LeaveRepository extends JpaRepository<Leave,Integer> {
 			  nativeQuery = true)
 			Collection<Leave> findAllPendingCompensationLeave();
 	
+<<<<<<< HEAD
+=======
+	@Query(
+			  value = "SELECT * FROM leave_app where status='Pending' AND leave_type<>'Compensation'", 
+			  nativeQuery = true)
+			Collection<Leave> findAllPendingLeave();
+>>>>>>> branch 'master' of https://github.com/sa48lwx/LAPS.git
 
 	List<Leave> findAllByEmployeeId(Long Id);
 }

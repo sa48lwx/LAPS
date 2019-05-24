@@ -92,7 +92,7 @@ public class AdminController implements LeaveServiceIF{
     	 	 model.addAttribute("leavelist", leavelist);
     		 return "leave";
 	    }
-	    
+	  
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.GET)
 	    public String editLeave( @PathVariable(value = "id") int id,Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);
@@ -131,7 +131,7 @@ public class AdminController implements LeaveServiceIF{
 	    	lRepo.delete(lRepo.findById(id).orElse(null));
 	        return "redirect:/leaves";
 	    }
-
+	    
 		@Override
 		public Leave SaveLeave(Leave l) {
 			List<Holiday> hols = hRepo.findAll();

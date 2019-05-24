@@ -19,6 +19,7 @@
 				<th>FromDate</th>
 				<th>ToDate</th>
 				<th>Duration</th>
+				<th>Manager Comment</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
@@ -30,6 +31,7 @@
 				<td th:text="${leave.fromDate}">fromDate</td>
 				<td th:text="${leave.toDate}">toDate</td>
 				<td th:text="${leave.duration}">Duration</td>
+				<td th:text="${leave.managerComment}">Manager Comment</td>
 				<td><a th:href="${'/leaves/edit/' + leave.id}"
 					class="btn btn-default">Edit</a></td>
 				<td><a th:href="${'/leaves/delete/' +leave.id}"
