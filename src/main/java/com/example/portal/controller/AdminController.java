@@ -7,9 +7,11 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -87,9 +89,18 @@ public class AdminController implements LeaveServiceIF{
 	        return "leave";
 	    }
 	    @RequestMapping(path = "/leaves", method = RequestMethod.GET)
-	    public String getAllLeave(Model model) {
-	    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-	 		model.addAttribute("leavelist", plist);
+	    public String getAllLeave(HttpServletRequest request,Model model) {
+	    	int page = 1;
+	    	int size = 5;
+	    	if (request.getParameter("page") != null && !request.getParameter("page").isEmpty()) {
+	            page = Integer.parseInt(request.getParameter("page")) - 1;
+	        }
+
+	        if (request.getParameter("size") != null && !request.getParameter("size").isEmpty()) {
+	            size = Integer.parseInt(request.getParameter("size"));
+	        }
+	    	// ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll(PageRequest.of(page, size));
+	 		model.addAttribute("leavelist",lRepo.findAll(PageRequest.of(page, size)));
 	     
 	        return "leave";
 	    } 

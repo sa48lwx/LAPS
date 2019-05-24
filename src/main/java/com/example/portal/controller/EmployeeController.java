@@ -133,18 +133,12 @@ public class EmployeeController implements LeaveServiceIF{
 
 		@Override
 		public Leave SaveLeave(Leave l) {
-			System.out.println("IN, we reached here1");
 			List<Holiday> hols = hRepo.findAll();
-			System.out.println("IN, we reached here2");
 	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
-	    	System.out.println("IN, we reached here3");
 	    	System.out.println(l.getToDate());
 	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
-	    	System.out.println("IN, we reached here4");
 	    	double diff = ldt.getDifference();
-	    	System.out.println("IN, we reached here5");
 	    	l.setDuration(diff);
-	    	System.out.println("IN, we reached here6");
 	    	lRepo.save(l);
 	        return l;
 		} 
