@@ -19,8 +19,6 @@
 					<td><input type="text" th:field="*{id}" ></td>
 					<td th:if="${#fields.hasErrors('id')}" th:errors="*{id}"></td>
 				</tr>
-
-				
 				<tr>
 					<td>From Date: </td>
 					<td><input type="date" th:field="*{fromDate}"></td>
@@ -34,32 +32,23 @@
 					<tr> <td> Leave Type:</td> <td> <select th:field="*{leave_type}">
 									   <option value=""> Choose leave type </option>
 									   <option th:value="Annual" th:text="Annual"/>
-									   <option th:value="Compensation" th:text="Compensation"/>
 									   <option th:value="Medical" th:text="Medical"/>
 									   </select> </td> </tr>
-				
-				
+				<tr>
+					<td>Reason:</td>
+					<td> <input type="text" th:field="*{reason}">
+					</td>
+				</tr>
+
 			<tr><td>
 			overseas Contact Details:</td>
 					<td><input type="text" th:field="*{overseasContactDetails}"></td>
 					<td th:if="${#fields.hasErrors('overseasContactDetails')}"
 						th:errors="*{overseasContactDetails}"></td>
 				</tr>
-			
-		
-						<tr>
-					<td>		managerComment: </td>
-					<td> <input type="text" th:field="*{managerComment}">
-					</td>
-					<td  th:if="${#fields.hasErrors('managerComment')}" th:errors="*{managerComment}"></td>
-				</tr>
-				<tr>
-					<td>Description:</td>
-					<td> <input type="text" th:field="*{Description}">
-					</td>
-					<td  th:if="${#fields.hasErrors('Description')}" th:errors="*{Description}"></td>
-				</tr>
-
+			<tr> <td> Status:</td> <td> <select th:field="*{status}">
+									   <option th:value="Pending" th:text="Pending"/>
+									   </select> </td> </tr>
 	</table>
     <p>
         <input type="submit" id="button" value="Submit"/>  <input type="reset" id="button" value="Reset">

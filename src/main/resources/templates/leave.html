@@ -14,20 +14,22 @@
 			<tr>
 				<th>Leave ID</th>
 				<th>Leave Type</th>
-				<th>Description</th>
+				<th>Reason</th>
 				<th>Status</th>
 				<th>FromDate</th>
 				<th>ToDate</th>
+				<th>Duration</th>
 				<th>Edit</th>
 				<th>Delete</th>
 			</tr>
 			<tr th:each="leave : ${leavelist}">
-				<td th:text="${leave.id}">Type</td>
+				<td th:text="${leave.id}">ID</td>
 				<td th:text="${leave.leave_type}">Type</td>
-				<td th:text="${leave.description}">Description</td>
+				<td th:text="${leave.reason}">Reason</td>
 				<td th:text="${leave.status}">Status</td>
 				<td th:text="${leave.fromDate}">fromDate</td>
 				<td th:text="${leave.toDate}">toDate</td>
+				<td th:text="${leave.duration}">Duration</td>
 				<td><a th:href="${'/leaves/edit/' + leave.id}"
 					class="btn btn-default">Edit</a></td>
 				<td><a th:href="${'/leaves/delete/' +leave.id}"

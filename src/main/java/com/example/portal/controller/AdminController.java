@@ -22,10 +22,12 @@ import  com.example.portal.model.Leave;
 import com.example.portal.repo.HolidayRepository;
 import  com.example.portal.repo.LeaveRepository;
 import  com.example.portal.repo.UserRepository;
+import com.example.portal.service.LeaveService;
+import com.example.portal.service.LeaveServiceIF;
 import com.example.portal.util.ComputeLeave; 
 
 @Controller
-public class AdminController {
+public class AdminController implements LeaveServiceIF{
 	private UserRepository mRepo;
 	private LeaveRepository lRepo;
 	private HolidayRepository hRepo;
@@ -78,14 +80,14 @@ public class AdminController {
 	    	if (bindingResult.hasErrors()) {
 	            return "leaveform";
 	        }
-	    	List<Holiday> hols = hRepo.findAll();
-	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
-	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
-	    	double diff = ldt.getDifference();
-	    	l.setDuration(diff);
-	        lRepo.save(l);
+	    	System.out.println("leave havent saved");
+	    	
+	    	l=SaveLeave(l);
+	    	System.out.println("leave saved");
 	    	ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-	    	model.addAttribute("leave_period", diff);
+	    	System.out.println("leave saved2");
+	    	model.addAttribute("leave_period", l.getDuration());
+	    	System.out.println("leave saved3");
 		 	model.addAttribute("leavelist", plist);
 	        return "leave";
 	    }
@@ -135,10 +137,17 @@ public class AdminController {
 	        return "redirect:/leaves";
 	    }
 
+		@Override
+		public Leave SaveLeave(Leave l) {
+			List<Holiday> hols = hRepo.findAll();
+	    	ArrayList<Date> holidays = (ArrayList<Date>) hols.stream().map(a -> a.getDate()).collect(Collectors.toList());
+	    	ComputeLeave ldt = new ComputeLeave(l.getFromDate(), l.getToDate(), holidays);
+	    	double diff = ldt.getDifference();
+	    	l.setDuration(diff);
+	    	lRepo.save(l);
+	        return l;
+		}
 
 
-
-
-	
 	  
 }
