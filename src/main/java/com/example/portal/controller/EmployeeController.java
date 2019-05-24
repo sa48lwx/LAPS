@@ -47,9 +47,10 @@ public class EmployeeController implements LeaveServiceIF{
 
 	@RequestMapping(path="/staff")
 	public String Index()
-	{
+	{	
 		return "homeEmployee";
 	}
+	
 	@RequestMapping(path="/manager")
 	public String In()
 	{

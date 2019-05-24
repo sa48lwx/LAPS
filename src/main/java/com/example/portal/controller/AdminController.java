@@ -3,7 +3,7 @@ package com.example.portal.controller;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,7 +22,6 @@ import  com.example.portal.model.Leave;
 import com.example.portal.repo.HolidayRepository;
 import  com.example.portal.repo.LeaveRepository;
 import  com.example.portal.repo.UserRepository;
-import com.example.portal.service.LeaveService;
 import com.example.portal.service.LeaveServiceIF;
 import com.example.portal.util.ComputeLeave; 
 
@@ -86,13 +85,14 @@ public class AdminController implements LeaveServiceIF{
 		 	model.addAttribute("leavelist", plist);
 	        return "leave";
 	    }
-	    @RequestMapping(path = "/leaves", method = RequestMethod.GET)
-	    public String getAllLeave(Model model) {
-	    	 ArrayList<Leave> plist = (ArrayList<Leave>) lRepo.findAll();
-	 		model.addAttribute("leavelist", plist);
-	     
-	        return "leave";
-	    } 
+	  
+	    @RequestMapping(path = "/leaves/{Id}", method = RequestMethod.GET)
+	    public String getAllLeave(@PathVariable Long Id, Model model) {
+	    	 List<Leave> leavelist = lRepo.findAllByEmployeeId(Id);
+    	 	 model.addAttribute("leavelist", leavelist);
+    		 return "leave";
+	    }
+	    
 	    @RequestMapping(path = "/leaves/edit/{id}", method = RequestMethod.GET)
 	    public String editLeave( @PathVariable(value = "id") int id,Leave l,Model model) {   	
 	    	l = lRepo.findById(id).orElse(null);

@@ -36,7 +36,7 @@ public class Leave {
 	
 		this.granularity = granularity;
 		this.leaveEntitlement = leaveEntitlement;
-		EmployeeId = employeeId;
+		this.employeeId = employeeId;
 		this.status = status;
 		this.reason = reason;
 		this.fromDate = fromDate;
@@ -47,15 +47,15 @@ public class Leave {
 	private double granularity;
 	private int leaveEntitlement;
 	public long getEmployeeId() {
-		return EmployeeId;
+		return employeeId;
 	}
 
 
 	public void setEmployeeId(long employeeId) {
-		EmployeeId = employeeId;
+		employeeId = employeeId;
 	}
 	@Column(name = "employee_id")
-	private long EmployeeId;
+	private long employeeId;
 	private String status;
 	private String reason;
 	@Column(name = "from_date")
@@ -215,10 +215,18 @@ public Leave(String leaveType, String description) {
 	this.leave_type = leaveType;
 	Description = description;
 }
+
+
 @Override
 public String toString() {
-	return "Leave [leave_type=" + leave_type + ", Description=" + Description + "]";
+	return "Leave [Id=" + Id + ", overseasContactDetails=" + overseasContactDetails + ", managerComment="
+			+ managerComment + ", granularity=" + granularity + ", leaveEntitlement=" + leaveEntitlement
+			+ ", EmployeeId=" + employeeId + ", status=" + status + ", reason=" + reason + ", fromDate=" + fromDate
+			+ ", leave_type=" + leave_type + ", toDate=" + toDate + ", duration=" + duration + ", Description="
+			+ Description + "]";
 }
+
+
 public String getLeaveType() {
 	return leave_type;
 }
